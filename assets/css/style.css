@@ -1,0 +1,128 @@
+/* ============================================================
+   HeatSchools — hoja de estilos
+   Paleta cálida (calor) sobre fondo claro y legible.
+   ============================================================ */
+
+:root {
+  --heat-1: #b91c1c;   /* rojo intenso */
+  --heat-2: #ea580c;   /* naranja */
+  --heat-3: #f59e0b;   /* ámbar */
+  --ink:    #1f2937;   /* texto */
+  --muted:  #6b7280;   /* texto secundario */
+  --line:   #e5e7eb;   /* bordes */
+  --bg:     #ffffff;
+  --bg-soft:#fdf6f0;   /* fondo cálido suave */
+  --max:    980px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.65;
+  font-size: 17px;
+}
+
+.container { max-width: var(--max); margin: 0 auto; padding: 0 1.25rem; }
+
+a { color: var(--heat-1); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3 { line-height: 1.25; color: var(--ink); }
+h1 { font-size: 2rem; margin: 0 0 .5rem; }
+h2 { font-size: 1.45rem; margin: 2.25rem 0 .75rem; }
+h3 { font-size: 1.15rem; margin: 1.5rem 0 .5rem; }
+
+/* --- Cabecera --- */
+.site-header {
+  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; background: rgba(255,255,255,.95);
+  backdrop-filter: blur(6px); z-index: 10;
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: .9rem 1.25rem; }
+.brand-mark {
+  font-weight: 800; font-size: 1.25rem; letter-spacing: -.02em;
+  background: linear-gradient(90deg, var(--heat-1), var(--heat-3));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.site-nav { display: flex; align-items: center; flex-wrap: wrap; }
+.site-nav > a { color: var(--ink); margin-left: 1.25rem; font-weight: 600; font-size: .95rem; }
+.site-nav > a:hover { color: var(--heat-2); text-decoration: none; }
+.lang-switch { margin-left: 1.25rem; padding-left: 1rem; border-left: 1px solid var(--line); }
+.lang-switch a.lang { margin-left: .5rem; font-size: .82rem; font-weight: 700; color: var(--muted); }
+.lang-switch a.lang.active { color: var(--heat-1); }
+.lang-switch a.lang:hover { color: var(--heat-2); text-decoration: none; }
+@media (max-width: 640px) {
+  .header-inner { flex-direction: column; align-items: flex-start; gap: .5rem; }
+  .site-nav > a:first-child { margin-left: 0; }
+}
+
+/* --- Hero --- */
+.hero {
+  background: linear-gradient(135deg, var(--heat-1), var(--heat-2) 60%, var(--heat-3));
+  color: #fff; padding: 4rem 0 3.5rem; margin-bottom: 2rem;
+}
+.hero .container { max-width: var(--max); }
+.hero h1 { color: #fff; font-size: 2.6rem; max-width: 20ch; }
+.hero p.lead { font-size: 1.25rem; max-width: 55ch; opacity: .97; }
+.hero .btn {
+  display: inline-block; margin-top: 1.25rem; background: #fff; color: var(--heat-1);
+  padding: .7rem 1.3rem; border-radius: 8px; font-weight: 700;
+}
+.hero .btn:hover { text-decoration: none; opacity: .92; }
+
+/* --- Tarjetas / rejillas --- */
+.grid { display: grid; gap: 1.25rem; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 760px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+.card {
+  border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem;
+  background: var(--bg); transition: box-shadow .15s, transform .15s;
+}
+.card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.07); transform: translateY(-2px); }
+.card h3 { margin-top: 0; }
+
+/* Objetivos con número */
+.goal { border-left: 4px solid var(--heat-2); padding: .25rem 0 .25rem 1rem; margin: 1rem 0; }
+.goal .n { color: var(--heat-2); font-weight: 800; }
+
+/* --- Equipo --- */
+.person { text-align: left; }
+.person .role { color: var(--heat-2); font-weight: 600; font-size: .9rem; }
+.person .aff { color: var(--muted); font-size: .9rem; }
+.person img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; margin-bottom: .5rem; background: var(--bg-soft); }
+
+/* --- Publicaciones --- */
+.pub { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.pub .pub-title { font-weight: 700; }
+.pub .pub-meta { color: var(--muted); font-size: .92rem; }
+.tag {
+  display: inline-block; font-size: .72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .04em; color: var(--heat-1); background: var(--bg-soft);
+  border: 1px solid var(--heat-3); border-radius: 999px; padding: .1rem .6rem; margin-right: .4rem;
+}
+
+/* --- Noticias --- */
+.news-item { padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
+.news-item .post-meta, .post-meta { color: var(--muted); font-size: .9rem; margin: 0 0 .25rem; }
+.post-hero { width: 100%; border-radius: 12px; margin: 1rem 0; }
+.post-body { font-size: 1.05rem; }
+.back { margin-top: 2rem; }
+
+/* --- Pie --- */
+.site-footer { border-top: 1px solid var(--line); margin-top: 4rem; background: var(--bg-soft); }
+.footer-inner { display: flex; justify-content: space-between; gap: 2rem; padding: 2rem 1.25rem; flex-wrap: wrap; }
+.footer-meta { color: var(--muted); font-size: .88rem; text-align: right; }
+.footer-meta p { margin: .15rem 0; }
+@media (max-width: 640px) { .footer-meta { text-align: left; } }
+
+/* utilidades */
+.section { margin: 2.5rem 0; }
+.muted { color: var(--muted); }
+.center { text-align: center; }
+ul.clean { list-style: none; padding: 0; }

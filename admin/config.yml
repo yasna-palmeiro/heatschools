@@ -1,0 +1,172 @@
+# ============================================================
+#  Configuración del CMS visual (Sveltia / Decap) — trilingüe
+#  Reemplaza TU_USUARIO y TU-WORKER por tus valores reales.
+#  Ver la guía en README.md (secciones 6 y 7).
+# ============================================================
+
+backend:
+  name: github
+  repo: TU_USUARIO/heatschools      # <-- tu_usuario_de_github/nombre_del_repositorio
+  branch: main
+  base_url: https://TU-WORKER.tu-subdominio.workers.dev   # autenticador (Cloudflare Worker)
+
+locale: es
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  # ---------- Páginas de inicio (una por idioma) ----------
+  - name: inicio
+    label: "Inicio (páginas)"
+    files:
+      - name: inicio_es
+        label: "Inicio · Español"
+        file: "index.md"
+        fields:
+          - { label: Layout, name: layout, widget: hidden, default: home }
+          - { label: Idioma, name: lang, widget: hidden, default: es }
+          - { label: Ref, name: ref, widget: hidden, default: home }
+          - { label: Título interno, name: title, widget: hidden, default: Inicio }
+          - { label: Permalink, name: permalink, widget: hidden, default: / }
+          - { label: "Título principal", name: hero_title, widget: string }
+          - { label: "Frase de entrada", name: hero_lead, widget: text }
+          - { label: "Contenido", name: body, widget: markdown }
+      - name: inicio_en
+        label: "Home · English"
+        file: "en/index.md"
+        fields:
+          - { label: Layout, name: layout, widget: hidden, default: home }
+          - { label: Language, name: lang, widget: hidden, default: en }
+          - { label: Ref, name: ref, widget: hidden, default: home }
+          - { label: Internal title, name: title, widget: hidden, default: Home }
+          - { label: Permalink, name: permalink, widget: hidden, default: /en/ }
+          - { label: "Main title", name: hero_title, widget: string }
+          - { label: "Lead sentence", name: hero_lead, widget: text }
+          - { label: "Content", name: body, widget: markdown }
+      - name: inicio_pt
+        label: "Início · Português"
+        file: "pt/index.md"
+        fields:
+          - { label: Layout, name: layout, widget: hidden, default: home }
+          - { label: Idioma, name: lang, widget: hidden, default: pt }
+          - { label: Ref, name: ref, widget: hidden, default: home }
+          - { label: Título interno, name: title, widget: hidden, default: Início }
+          - { label: Permalink, name: permalink, widget: hidden, default: /pt/ }
+          - { label: "Título principal", name: hero_title, widget: string }
+          - { label: "Frase de entrada", name: hero_lead, widget: text }
+          - { label: "Conteúdo", name: body, widget: markdown }
+
+  # ---------- Equipo (una lista por idioma; misma carpeta, filtrada) ----------
+  - name: equipo_es
+    label: "Equipo · Español"
+    label_singular: "Persona"
+    folder: "_team"
+    filter: { field: lang, value: es }
+    create: true
+    slug: "{{fields.name | slugify}}-es"
+    summary: "{{fields.name}} — {{fields.role}}"
+    fields:
+      - { label: Idioma, name: lang, widget: hidden, default: es }
+      - { label: "Nombre", name: name, widget: string }
+      - { label: "Rol", name: role, widget: string }
+      - { label: "Afiliación", name: affiliation, widget: string }
+      - { label: "Orden (menor = primero)", name: order, widget: number, default: 99, value_type: int }
+      - { label: "Foto", name: photo, widget: image, required: false }
+      - { label: "Enlace a perfil", name: link, widget: string, required: false }
+
+  - name: equipo_en
+    label: "Team · English"
+    label_singular: "Person"
+    folder: "_team"
+    filter: { field: lang, value: en }
+    create: true
+    slug: "{{fields.name | slugify}}-en"
+    summary: "{{fields.name}} — {{fields.role}}"
+    fields:
+      - { label: Language, name: lang, widget: hidden, default: en }
+      - { label: "Name", name: name, widget: string }
+      - { label: "Role", name: role, widget: string }
+      - { label: "Affiliation", name: affiliation, widget: string }
+      - { label: "Order (lower = first)", name: order, widget: number, default: 99, value_type: int }
+      - { label: "Photo", name: photo, widget: image, required: false }
+      - { label: "Profile link", name: link, widget: string, required: false }
+
+  - name: equipo_pt
+    label: "Equipe · Português"
+    label_singular: "Pessoa"
+    folder: "_team"
+    filter: { field: lang, value: pt }
+    create: true
+    slug: "{{fields.name | slugify}}-pt"
+    summary: "{{fields.name}} — {{fields.role}}"
+    fields:
+      - { label: Idioma, name: lang, widget: hidden, default: pt }
+      - { label: "Nome", name: name, widget: string }
+      - { label: "Função", name: role, widget: string }
+      - { label: "Afiliação", name: affiliation, widget: string }
+      - { label: "Ordem (menor = primeiro)", name: order, widget: number, default: 99, value_type: int }
+      - { label: "Foto", name: photo, widget: image, required: false }
+      - { label: "Link de perfil", name: link, widget: string, required: false }
+
+  # ---------- Publicaciones (una sola lista, común a los 3 idiomas) ----------
+  - name: publicaciones
+    label: "Publicaciones"
+    label_singular: "Publicación"
+    folder: "_publications"
+    create: true
+    slug: "{{year}}-{{fields.title | slugify}}"
+    summary: "{{fields.title}} ({{fields.year}})"
+    fields:
+      - { label: "Título", name: title, widget: string }
+      - { label: "Autores", name: authors, widget: string }
+      - { label: "Año", name: year, widget: number, value_type: int }
+      - label: "Tipo"
+        name: type
+        widget: select
+        options: ["Artículo", "Informe", "Datos", "Póster", "Otro"]
+      - { label: "Revista / Fuente", name: venue, widget: string, required: false }
+      - { label: "Enlace (DOI/URL)", name: link, widget: string, required: false }
+      - { label: "Resumen", name: body, widget: markdown, required: false }
+
+  # ---------- Noticias (una lista por idioma) ----------
+  - name: news_es
+    label: "Noticias · Español"
+    label_singular: "Noticia"
+    folder: "_news_es"
+    create: true
+    slug: "{{fields.title | slugify}}"
+    summary: "{{fields.title}}"
+    fields:
+      - { label: "Título", name: title, widget: string }
+      - { label: "Fecha", name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD-MM-YYYY", time_format: false }
+      - { label: "Autor", name: author, widget: string, required: false }
+      - { label: "Imagen de portada", name: image, widget: image, required: false }
+      - { label: "Contenido", name: body, widget: markdown }
+
+  - name: news_en
+    label: "News · English"
+    label_singular: "News item"
+    folder: "_news_en"
+    create: true
+    slug: "{{fields.title | slugify}}"
+    summary: "{{fields.title}}"
+    fields:
+      - { label: "Title", name: title, widget: string }
+      - { label: "Date", name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD-MM-YYYY", time_format: false }
+      - { label: "Author", name: author, widget: string, required: false }
+      - { label: "Cover image", name: image, widget: image, required: false }
+      - { label: "Content", name: body, widget: markdown }
+
+  - name: news_pt
+    label: "Notícias · Português"
+    label_singular: "Notícia"
+    folder: "_news_pt"
+    create: true
+    slug: "{{fields.title | slugify}}"
+    summary: "{{fields.title}}"
+    fields:
+      - { label: "Título", name: title, widget: string }
+      - { label: "Data", name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD-MM-YYYY", time_format: false }
+      - { label: "Autor", name: author, widget: string, required: false }
+      - { label: "Imagem de capa", name: image, widget: image, required: false }
+      - { label: "Conteúdo", name: body, widget: markdown }

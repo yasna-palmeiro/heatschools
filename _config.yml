@@ -1,0 +1,56 @@
+# ============================================================
+#  Configuración del sitio HeatSchools (trilingüe ES/EN/PT)
+#  Edita los valores con cuidado (respeta los espacios).
+# ============================================================
+
+title: "HeatSchools"
+tagline: "Protegiendo la salud escolar frente al calor extremo en América Latina"
+description: >-
+  Proyecto de investigación financiado por el Wellcome Climate Impacts Award
+  para hacer visible el impacto del calor extremo en la salud y el bienestar
+  del estudiantado en América Latina, y catalizar la acción política.
+
+# Idiomas del sitio. El primero es el idioma por defecto (raíz del sitio).
+languages: ["es", "en", "pt"]
+default_lang: "es"
+
+# URL del sitio. Pon aquí tu dominio .org cuando lo tengas.
+# Ejemplo:  url: "https://heatschools.org"
+url: "https://TU_DOMINIO.org"
+# Con dominio propio, baseurl debe quedar VACÍO. No lo cambies.
+baseurl: ""
+
+# --- Colecciones ---
+# Noticias: una colección por idioma (cada una con su URL).
+# Equipo y publicaciones: una sola colección; el equipo se filtra por idioma.
+collections:
+  news_es:
+    output: true
+    permalink: /noticias/:name/
+  news_en:
+    output: true
+    permalink: /en/news/:name/
+  news_pt:
+    output: true
+    permalink: /pt/noticias/:name/
+  team:
+    output: false
+  publications:
+    output: false
+
+# --- Valores por defecto (idioma y plantilla de cada colección de noticias) ---
+defaults:
+  - scope: { path: "", type: "news_es" }
+    values: { layout: "post", lang: "es", ref: "news" }
+  - scope: { path: "", type: "news_en" }
+    values: { layout: "post", lang: "en", ref: "news" }
+  - scope: { path: "", type: "news_pt" }
+    values: { layout: "post", lang: "pt", ref: "news" }
+
+# --- Build ---
+markdown: kramdown
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor

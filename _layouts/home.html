@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.default_lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ site.title }} · {{ site.tagline }}</title>
+  <meta name="description" content="{{ page.hero_lead | default: site.description }}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  {% assign lang = page.lang | default: site.default_lang %}
+  {% assign t = site.data.i18n[lang] %}
+  {% include header.html %}
+  <section class="hero">
+    <div class="container">
+      <h1>{{ page.hero_title | default: site.tagline }}</h1>
+      <p class="lead">{{ page.hero_lead | default: site.description }}</p>
+      <a class="btn" href="{{ t.url_news | relative_url }}">{{ t.latest_news }}</a>
+    </div>
+  </section>
+  <main class="container">
+    {{ content }}
+  </main>
+  {% include footer.html %}
+</body>
+</html>

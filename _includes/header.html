@@ -1,0 +1,23 @@
+{% assign lang = page.lang | default: site.default_lang %}
+{% assign t = site.data.i18n[lang] %}
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{ t.url_home | relative_url }}">
+      <span class="brand-mark">HeatSchools</span>
+    </a>
+    <nav class="site-nav">
+      <a href="{{ t.url_home | relative_url }}">{{ t.nav_home }}</a>
+      <a href="{{ t.url_team | relative_url }}">{{ t.nav_team }}</a>
+      <a href="{{ t.url_pubs | relative_url }}">{{ t.nav_pubs }}</a>
+      <a href="{{ t.url_news | relative_url }}">{{ t.nav_news }}</a>
+      <span class="lang-switch">
+        {% assign ref = page.ref | default: "home" %}
+        {% assign key = "url_" | append: ref %}
+        {% for l in site.languages %}
+          {% assign target = site.data.i18n[l][key] %}
+          <a href="{{ target | relative_url }}" class="lang{% if l == lang %} active{% endif %}" hreflang="{{ l }}">{{ l | upcase }}</a>
+        {% endfor %}
+      </span>
+    </nav>
+  </div>
+</header>
