@@ -16,7 +16,7 @@ default_lang: "es"
 
 # URL del sitio. Pon aquí tu dominio .org cuando lo tengas.
 # Ejemplo:  url: "https://heatschools.org"
-url: "https://TU_DOMINIO.org"
+url: "https://escuelascool.org"
 # Con dominio propio, baseurl debe quedar VACÍO. No lo cambies.
 baseurl: ""
 
